@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Owner Data Lookup</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+
+      #result {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Owner Data Lookup</h1>
+    <div>
+      <label for="ownerAddress">Enter Owner Address:</label>
+      <input type="text" id="ownerAddress" />
+      <button onclick="searchOwner()">Search</button>
+    </div>
+    <div id="result">
+      <p><strong>Crown Due:</strong> <span id="crownDue">-</span></p>
+      <p><strong>Crown Received:</strong> <span id="crownReceived">-</span></p>
+      <p><strong>PFPs Data:</strong></p>
+      <textarea id="pfpsData" rows="10" cols="50" readonly></textarea>
+    </div>
+
+    <script>
+      // Placeholder for JSON data
+      let jsonData = {};
+
+      // Function to search for the owner data
+      function searchOwner() {
+        const ownerAddress = document.getElementById("ownerAddress").value;
+        const ownerData = jsonData.find((data) => data.owner === ownerAddress);
+
+        if (ownerData) {
+          document.getElementById("crownDue").textContent = ownerData.crownDue;
+          document.getElementById("crownReceived").textContent =
+            ownerData.crownReceived;
+          document.getElementById("pfpsData").value = JSON.stringify(
+            ownerData.pfps,
+            null,
+            2
+          );
+        } else {
+          document.getElementById("crownDue").textContent = "-";
+          document.getElementById("crownReceived").textContent = "-";
+          document.getElementById("pfpsData").value =
+            "No data found for this owner address.";
+        }
+      }
+
+      // Load JSON data on page load
+      window.onload = function () {
+        fetch("output_with_rewards.json")
+          .then((response) => response.json())
+          .then((data) => {
+            jsonData = data;
+          });
+      };
+    </script>
+  </body>
+</html>
