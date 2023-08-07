@@ -14,3 +14,6 @@ Initially zipped, but unzipped is a collection of JSON files from every single t
 
 ## scripts
 Collection of python scripts and helper / util CSV files that take that raw data and try to collate it into the final product used on the website.
+
+# GIT LFS
+Note, the zip files in this directory are somewhat large, therefore they are tracked via Git LFS, which means you'll need to install git LFS to make sure you get all the files. Details: https://git-lfs.com
